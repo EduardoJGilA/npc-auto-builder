@@ -1,11 +1,11 @@
-import { SKILL_ABILITY } from "../constants.js";
+import { getSystem } from "../systems/index.js";
 
-const ITEM_PACKS = () => game.packs.filter(p => p.documentName === "Item");
+const packsOf = (documentName) => game.packs.filter(p => p.documentName === documentName);
 
-/** Fuzzy-match name against compendium indexes, return best Item document or null. */
-async function resolveCompendiumItem(name) {
+/** Fuzzy-match a name against a set of compendium indexes (includes any 5e.tools/Plutonium packs already in the world). */
+async function resolveFromPacks(packs, name) {
   const needle = name.trim().toLowerCase();
-  for (const pack of ITEM_PACKS()) {
+  for (const pack of packs) {
     const index = await pack.getIndex();
     const hit = index.find(e => e.name.toLowerCase() === needle)
       ?? index.find(e => e.name.toLowerCase().includes(needle) || needle.includes(e.name.toLowerCase()));
@@ -14,11 +14,11 @@ async function resolveCompendiumItem(name) {
   return null;
 }
 
-/** Resolve item names to embeddable item data, validated against system compendium where possible. */
-async function resolveItems(names = [], fallbackType = "loot") {
+/** Resolve item names to embeddable item data, validated against system compendiums where possible. */
+async function resolveItems(names = [], fallbackType) {
   const out = [];
   for (const name of names) {
-    const doc = await resolveCompendiumItem(name);
+    const doc = await resolveFromPacks(packsOf("Item"), name);
     if (doc) {
       const data = doc.toObject();
       delete data._id;
@@ -34,66 +34,32 @@ async function resolveItems(names = [], fallbackType = "loot") {
   return out;
 }
 
-function buildAbilities(spec) {
-  const abilities = {};
-  for (const key of ["str", "dex", "con", "int", "wis", "cha"]) {
-    const value = spec.abilities?.[key] ?? 10;
-    const proficient = spec.saveProficiencies?.includes(key) ? 1 : 0;
-    abilities[key] = { value, proficient };
-  }
-  return abilities;
+/** Try to import an existing Actor by name from any installed compendium (e.g. a 5e.tools/Plutonium bestiary). */
+export async function importCompendiumActor(name) {
+  const doc = await resolveFromPacks(packsOf("Actor"), name);
+  if (!doc) return null;
+  const data = doc.toObject();
+  delete data._id;
+  data.flags = foundry.utils.mergeObject(data.flags ?? {}, { "npc-auto-builder": { source: "compendium" } });
+  return Actor.create(data);
 }
 
-function buildSkills(spec) {
-  const skills = {};
-  for (const key of spec.skillProficiencies ?? []) {
-    if (SKILL_ABILITY[key]) skills[key] = { value: 1 };
-  }
-  return skills;
-}
-
-/** Build Foundry Actor creation data from an AI-generated NPC spec. */
+/** Build Foundry Actor creation data from an AI-generated NPC spec, per the active game system. */
 export function buildActorData(spec) {
-  return {
-    name: spec.name ?? "Unnamed NPC",
-    type: "npc",
-    img: "icons/svg/mystery-man.svg",
-    system: {
-      abilities: buildAbilities(spec),
-      attributes: {
-        hp: { value: spec.hp ?? 1, max: spec.hp ?? 1, formula: "" },
-        ac: { flat: spec.ac ?? 10, calc: "flat" },
-        movement: { walk: spec.speed ?? 30, units: "ft" },
-        senses: { special: spec.senses ?? "" }
-      },
-      details: {
-        cr: spec.cr ?? 0.25,
-        type: { value: spec.type ?? "humanoid" },
-        alignment: spec.alignment ?? "",
-        biography: { value: `<p>${spec.biography ?? ""}</p>` }
-      },
-      traits: {
-        size: spec.size ?? "med",
-        languages: { custom: spec.languages ?? "" }
-      },
-      skills: buildSkills(spec)
-    }
-  };
+  return getSystem().buildActorData(spec);
 }
 
-/** Create the actor + resolved items in the world. */
+/** Create the actor + resolved items in the world, per the active game system. */
 export async function createNpcActor(spec) {
-  const actorData = buildActorData(spec);
-  const actor = await Actor.create(actorData);
+  const system = getSystem();
+  const actor = await Actor.create(system.buildActorData(spec));
 
-  const equipment = await resolveItems(spec.equipment, "loot");
-  const spells = await resolveItems(spec.spells, "spell");
-  const features = (spec.features ?? []).map(f => ({
-    name: f.name, type: "feat", system: { description: { value: `<p>${f.description ?? ""}</p>` } },
-    img: "icons/svg/book.svg", flags: { "npc-auto-builder": { validated: false } }
-  }));
+  const groups = await Promise.all(
+    system.itemGroups(spec).map(g => resolveItems(g.names, g.fallbackType))
+  );
+  const features = system.features?.(spec) ?? [];
 
-  const items = [...equipment, ...spells, ...features];
+  const items = [...groups.flat(), ...features];
   if (items.length) await actor.createEmbeddedDocuments("Item", items);
   return actor;
 }

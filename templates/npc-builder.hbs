@@ -1,18 +1,29 @@
 <div class="nab-form">
-  <label for="nab-description">{{localize "NAB.DescriptionLabel"}}</label>
-  <textarea id="nab-description" name="description" rows="5" placeholder="{{localize "NAB.DescriptionPlaceholder"}}"></textarea>
+  <section class="nab-section">
+    <label for="nab-compendium-name">{{localize "NAB.CompendiumLabel"}}</label>
+    <div class="nab-row">
+      <input id="nab-compendium-name" type="text" name="compendiumName" placeholder="{{localize "NAB.CompendiumPlaceholder"}}">
+      <button type="button" data-action="importCompendium"><i class="fa-solid fa-book"></i> {{localize "NAB.Import"}}</button>
+    </div>
+  </section>
 
-  <div class="nab-actions">
-    <button type="button" data-action="generate"><i class="fa-solid fa-wand-magic-sparkles"></i> {{localize "NAB.Generate"}}</button>
-    {{#if spec}}
-    <button type="button" data-action="exportJson"><i class="fa-solid fa-file-export"></i> {{localize "NAB.Export"}}</button>
-    {{/if}}
-  </div>
+  <hr>
+
+  <section class="nab-section">
+    <label for="nab-description">{{localize "NAB.DescriptionLabel"}}</label>
+    <textarea id="nab-description" name="description" rows="5" placeholder="{{localize "NAB.DescriptionPlaceholder"}}"></textarea>
+
+    <div class="nab-actions">
+      <button type="button" data-action="generate"><i class="fa-solid fa-wand-magic-sparkles"></i> {{localize "NAB.Generate"}}</button>
+      {{#if spec}}
+      <button type="button" data-action="exportJson"><i class="fa-solid fa-file-export"></i> {{localize "NAB.Export"}}</button>
+      {{/if}}
+    </div>
+  </section>
 
   {{#if spec}}
   <div class="nab-result">
     <h3>{{spec.name}}</h3>
-    <p>{{spec.type}} · CR {{spec.cr}} · AC {{spec.ac}} · HP {{spec.hp}}</p>
   </div>
   {{/if}}
 </div>

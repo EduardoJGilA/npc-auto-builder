@@ -40,3 +40,18 @@ Hooks.on("getSceneControlButtons", (controls) => {
   if (Array.isArray(tokenControl.tools)) tokenControl.tools.push(tool);
   else tokenControl.tools[tool.name] = tool;
 });
+
+// Also expose the builder from the Actors sidebar, where GMs actually look for it.
+Hooks.on("renderActorDirectory", (app, html) => {
+  if (!game.user.isGM) return;
+  const el = html instanceof HTMLElement ? html : html[0];
+  const actions = el.querySelector(".header-actions.action-buttons");
+  if (!actions || actions.querySelector(".npc-auto-builder-open")) return;
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "npc-auto-builder-open";
+  button.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> <span>${game.i18n.localize("NAB.Title")}</span>`;
+  button.addEventListener("click", () => new NpcBuilderApp().render(true));
+  actions.append(button);
+});

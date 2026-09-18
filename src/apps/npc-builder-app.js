@@ -1,6 +1,6 @@
 import { MODULE_ID } from "../constants.js";
 import { generateNpcSpec } from "../services/ai-service.js";
-import { createNpcActor } from "../services/actor-builder.js";
+import { createNpcActor, importCompendiumActor } from "../services/actor-builder.js";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -13,6 +13,7 @@ export class NpcBuilderApp extends HandlebarsApplicationMixin(ApplicationV2) {
     position: { width: 520, height: "auto" },
     actions: {
       generate: NpcBuilderApp.#onGenerate,
+      importCompendium: NpcBuilderApp.#onImportCompendium,
       exportJson: NpcBuilderApp.#onExport
     }
   };
@@ -47,6 +48,24 @@ export class NpcBuilderApp extends HandlebarsApplicationMixin(ApplicationV2) {
     } finally {
       target.disabled = false;
       target.textContent = original;
+    }
+  }
+
+  static async #onImportCompendium(event, target) {
+    const input = this.element.querySelector("input[name=compendiumName]");
+    const name = input?.value?.trim();
+    if (!name) return ui.notifications.warn(game.i18n.localize("NAB.Warn.NoName"));
+
+    target.disabled = true;
+    try {
+      const actor = await importCompendiumActor(name);
+      if (!actor) return ui.notifications.warn(game.i18n.format("NAB.Warn.NoCompendiumMatch", { name }));
+      ui.notifications.info(game.i18n.format("NAB.Success", { name: actor.name }));
+    } catch (err) {
+      console.error(`${MODULE_ID} |`, err);
+      ui.notifications.error(err.message);
+    } finally {
+      target.disabled = false;
     }
   }
 

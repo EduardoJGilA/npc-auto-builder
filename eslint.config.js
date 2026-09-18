@@ -4,7 +4,7 @@ const foundryGlobals = [
 ].reduce((acc, name) => Object.assign(acc, { [name]: "readonly" }), {});
 
 const browserGlobals = [
-  "window", "document", "console", "URL", "Blob", "fetch"
+  "window", "document", "console", "URL", "Blob", "fetch", "HTMLElement"
 ].reduce((acc, name) => Object.assign(acc, { [name]: "readonly" }), {});
 
 export default [

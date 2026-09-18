@@ -1,4 +1,7 @@
 .npc-auto-builder .nab-form { display: flex; flex-direction: column; gap: var(--space-sm, 8px); padding: var(--space-sm, 8px); }
+.npc-auto-builder .nab-section { display: flex; flex-direction: column; gap: var(--space-sm, 8px); }
+.npc-auto-builder .nab-row { display: flex; gap: var(--space-sm, 8px); }
+.npc-auto-builder .nab-row input { flex: 1; }
 .npc-auto-builder textarea { resize: vertical; min-height: 44px; }
 .npc-auto-builder .nab-actions { display: flex; gap: var(--space-sm, 8px); }
 .npc-auto-builder button { min-height: 44px; }
