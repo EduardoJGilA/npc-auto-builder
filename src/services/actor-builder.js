@@ -63,7 +63,8 @@ export function buildActorData(spec) {
       attributes: {
         hp: { value: spec.hp ?? 1, max: spec.hp ?? 1, formula: "" },
         ac: { flat: spec.ac ?? 10, calc: "flat" },
-        movement: { walk: spec.speed ?? 30, units: "ft" }
+        movement: { walk: spec.speed ?? 30, units: "ft" },
+        senses: { special: spec.senses ?? "" }
       },
       details: {
         cr: spec.cr ?? 0.25,
@@ -73,7 +74,6 @@ export function buildActorData(spec) {
       },
       traits: {
         size: spec.size ?? "med",
-        senses: { special: spec.senses ?? "" },
         languages: { custom: spec.languages ?? "" }
       },
       skills: buildSkills(spec)
