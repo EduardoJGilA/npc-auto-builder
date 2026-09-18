@@ -3,7 +3,7 @@
   "NAB.CompendiumLabel": "Import from compendium (5e.tools / Plutonium / any installed pack)",
   "NAB.CompendiumPlaceholder": "Exact or partial creature name, e.g. \"Goblin\"",
   "NAB.Import": "Import",
-  "NAB.DescriptionLabel": "Or describe an NPC for the AI to build",
+  "NAB.DescriptionLabel": "Or describe an NPC for the AI to build (English or Spanish)",
   "NAB.DescriptionPlaceholder": "A cunning goblin rogue who dual-wields daggers...",
   "NAB.Generate": "Generate",
   "NAB.Generating": "Generating...",

@@ -3,7 +3,7 @@
   "NAB.CompendiumLabel": "Importar desde compendio (5e.tools / Plutonium / cualquier pack instalado)",
   "NAB.CompendiumPlaceholder": "Nombre exacto o parcial de la criatura, ej. \"Goblin\"",
   "NAB.Import": "Importar",
-  "NAB.DescriptionLabel": "O describe un PNJ para que la IA lo construya",
+  "NAB.DescriptionLabel": "O describe un PNJ para que la IA lo construya (español o inglés)",
   "NAB.DescriptionPlaceholder": "Un pícaro goblin astuto que combate con dos dagas...",
   "NAB.Generate": "Generar",
   "NAB.Generating": "Generando...",
