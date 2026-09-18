@@ -1,0 +1,17 @@
+{
+  "name": "npc-auto-builder",
+  "version": "1.0.0",
+  "description": "AI-powered NPC generator for D&D 5e in Foundry VTT.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src/",
+    "test": "node test/smoke.mjs",
+    "check": "npm run lint && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "eslint": "^9.0.0"
+  }
+}

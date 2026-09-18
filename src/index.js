@@ -1,3 +1,4 @@
+import "./styles/npc-builder.css";
 import { MODULE_ID } from "./constants.js";
 import { NpcBuilderApp } from "./apps/npc-builder-app.js";
 
