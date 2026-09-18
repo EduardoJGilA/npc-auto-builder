@@ -2,7 +2,7 @@
   "id": "npc-auto-builder",
   "title": "D&D5e NPC Auto-Builder",
   "description": "AI-powered NPC generator for D&D 5e. Describe an NPC in plain text, get a validated, ready-to-use actor.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "authors": [
     {
       "name": "MGK"
