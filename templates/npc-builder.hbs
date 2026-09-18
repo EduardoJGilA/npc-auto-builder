@@ -1,0 +1,18 @@
+<div class="nab-form">
+  <label for="nab-description">{{localize "NAB.DescriptionLabel"}}</label>
+  <textarea id="nab-description" name="description" rows="5" placeholder="{{localize "NAB.DescriptionPlaceholder"}}"></textarea>
+
+  <div class="nab-actions">
+    <button type="button" data-action="generate"><i class="fa-solid fa-wand-magic-sparkles"></i> {{localize "NAB.Generate"}}</button>
+    {{#if spec}}
+    <button type="button" data-action="exportJson"><i class="fa-solid fa-file-export"></i> {{localize "NAB.Export"}}</button>
+    {{/if}}
+  </div>
+
+  {{#if spec}}
+  <div class="nab-result">
+    <h3>{{spec.name}}</h3>
+    <p>{{spec.type}} · CR {{spec.cr}} · AC {{spec.ac}} · HP {{spec.hp}}</p>
+  </div>
+  {{/if}}
+</div>

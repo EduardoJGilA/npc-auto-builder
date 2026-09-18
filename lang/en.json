@@ -1,0 +1,18 @@
+{
+  "NAB.Title": "NPC Auto-Builder",
+  "NAB.DescriptionLabel": "Describe the NPC",
+  "NAB.DescriptionPlaceholder": "A cunning goblin rogue who dual-wields daggers...",
+  "NAB.Generate": "Generate",
+  "NAB.Generating": "Generating...",
+  "NAB.Export": "Export JSON",
+  "NAB.Success": "Created NPC: {name}",
+  "NAB.Warn.NoDescription": "Enter a description first.",
+  "NAB.Error.NoApiKey": "Set an API key in module settings.",
+  "NAB.Error.EmptyResponse": "AI returned an empty response.",
+  "NAB.Settings.Provider.Name": "AI Provider",
+  "NAB.Settings.Provider.Hint": "Gemini or OpenAI.",
+  "NAB.Settings.ApiKey.Name": "API Key",
+  "NAB.Settings.ApiKey.Hint": "API key for the selected provider.",
+  "NAB.Settings.Model.Name": "Model",
+  "NAB.Settings.Model.Hint": "e.g. gemini-2.5-flash or gpt-4o-mini."
+}

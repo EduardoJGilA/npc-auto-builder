@@ -1,0 +1,18 @@
+{
+  "id": "npc-auto-builder",
+  "title": "D&D5e NPC Auto-Builder",
+  "description": "AI-powered NPC generator for D&D 5e. Describe an NPC in plain text, get a validated, ready-to-use actor.",
+  "version": "1.0.0",
+  "authors": [{ "name": "contacto@tecnoconceptos.com" }],
+  "compatibility": { "minimum": "14", "verified": "14.364", "maximum": "14.999" },
+  "relationships": { "systems": [{ "id": "dnd5e", "type": "system", "compatibility": { "minimum": "3" } }] },
+  "esmodules": ["scripts/main.js"],
+  "styles": ["styles/npc-builder.css"],
+  "languages": [
+    { "lang": "en", "name": "English", "path": "lang/en.json" },
+    { "lang": "es", "name": "Español", "path": "lang/es.json" }
+  ],
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

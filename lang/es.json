@@ -1,0 +1,18 @@
+{
+  "NAB.Title": "Creador Automático de PNJ",
+  "NAB.DescriptionLabel": "Describe al PNJ",
+  "NAB.DescriptionPlaceholder": "Un pícaro goblin astuto que combate con dos dagas...",
+  "NAB.Generate": "Generar",
+  "NAB.Generating": "Generando...",
+  "NAB.Export": "Exportar JSON",
+  "NAB.Success": "PNJ creado: {name}",
+  "NAB.Warn.NoDescription": "Introduce una descripción primero.",
+  "NAB.Error.NoApiKey": "Configura una clave API en los ajustes del módulo.",
+  "NAB.Error.EmptyResponse": "La IA devolvió una respuesta vacía.",
+  "NAB.Settings.Provider.Name": "Proveedor IA",
+  "NAB.Settings.Provider.Hint": "Gemini u OpenAI.",
+  "NAB.Settings.ApiKey.Name": "Clave API",
+  "NAB.Settings.ApiKey.Hint": "Clave API del proveedor seleccionado.",
+  "NAB.Settings.Model.Name": "Modelo",
+  "NAB.Settings.Model.Hint": "p.ej. gemini-2.5-flash o gpt-4o-mini."
+}

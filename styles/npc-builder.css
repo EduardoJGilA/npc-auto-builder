@@ -1,0 +1,5 @@
+.npc-auto-builder .nab-form { display: flex; flex-direction: column; gap: var(--space-sm, 8px); padding: var(--space-sm, 8px); }
+.npc-auto-builder textarea { resize: vertical; min-height: 44px; }
+.npc-auto-builder .nab-actions { display: flex; gap: var(--space-sm, 8px); }
+.npc-auto-builder button { min-height: 44px; }
+.npc-auto-builder .nab-result { border-top: 1px solid var(--color-border-light-2, #ccc); padding-top: var(--space-sm, 8px); }
